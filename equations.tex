@@ -1,0 +1,83 @@
+\documentclass{myclass}
+
+\begin{document}
+
+\section*{Noninteracting, Zero temperature}
+
+$\hat{h}_j$ operator: $\hat{h}_j = -J(\hat{c}^\dag_j \hat{c}_{j+1} + \hat{c}^\dag_{j+1} \hat{c}_{j})$
+
+Initial Hamiltonian: $\hat{P} = \sum \limits_{j=0}^{L-1} j \hat{h}_j = -J \sum \limits_{j=0}^{L-1} j (\hat{c}^\dag_j \hat{c}_{j+1} + \hat{c}^\dag_{j+1} \hat{c}_{j})$
+
+Post-quench Hamiltonian: $\hat{H} = \sum \limits_{j=0}^{L-1} \hat{h}_j = \sum \limits_{j=0}^{L-1} -J(\hat{c}^\dag_j \hat{c}_{j+1} + \hat{c}^\dag_{j+1} \hat{c}_{j})$
+
+
+Emergent Hamiltonian: $\mathcal{H}(t) = \hat{P} + t \hat{Q} = \sum \limits_{j = 0}^{L-1} \left[ j \hat{c}^\dag_j \hat{c}_j 
+- t (i \hat{c}^\dag_{j+1} \hat{c}_j - i \hat{c}^\dag_{j} \hat{c}_{j+1} ) \right]$
+
+
+Analytical single particle correlation solution ($m \neq n$): $C_{mn}  = i^{n-m} \frac{t(J_m(2t) J_{n+1}(2t) - J_{m+1}(2t) J_n(2t))}{n-m}$
+
+Analytical single particle correlation solution ($m = n$):
+
+Effective single particle correlation solution: $C_{mn} = \sum \limits_{j = 1}^N \phi^\ast_{q_j} (m) \phi_{q_j}(n)$ \hspace{5mm}
+($\{\phi_q\}$ is the set of $N=1$ energy eigenstates)
+
+
+
+\section*{Noninteracting, Infinite Temperature}
+
+Initial Hamiltonian, current operator, emergent Hamiltonian are the same as in the $T=0$ case.
+
+Initial (mixed) state: \\
+The full set of computational basis states contains each arrangement of $N$ particles along length $L = 4N$ lattice. 
+Extract basis states in which all $N$ particles are confined to the middle half of the lattice. 
+Initialize initial state $|\psi_0\rangle$ as en empty list. 
+Convert these binary strings into normalized lists and append each to $|\psi_0 \rangle$.
+
+Effective (mixed) state: \\
+Diagonalize emergent Hamiltonian.
+For each normalized computational basis state in initial state $|\psi_0 \rangle$,
+	for each site entry in this basis state, if the entry is not zero, append the eigenstate (list) from the emergent Hamiltonian corresponding to that entry to a list.
+	Append that 2d list to the mixed state list.
+
+ 
+
+
+\section*{Interacting ($t$-$V$)}
+
+$\hat{h}_j$ operator: $\hat{h}_j = -J (c^\dag_{j} c_{j+1} + c^\dag_{j+1} c_j) + V (c^\dag_j c_j - 1/2) (c^\dag_{j+1} c_{j+1} - 1/2)$
+
+Initial Hamiltonian:
+\begin{align*}
+\hat{P} &= \sum \limits_{j=0}^{L-1} j \hat{h}_j \\
+&= \sum \limits_{j=0}^{L-1} j \left(J (c^\dag_{j} c_{j+1} + c^\dag_{j+1} c_j) + V (c^\dag_j c_j - 1/2) (c^\dag_{j+1} c_{j+1} - 1/2) \right)
+\end{align*}
+
+Current operator: 
+\begin{align*}
+\hat{Q} &=   \sum \limits_j  \bigg[ i J^2 ( c^\dag_{j+2}c_{j} -  c^\dag_{j}c_{j+2}) - iV \left( (c^\dag_{j+1} c_{j} - c^\dag_{j}
+    c_{j+1})(n_{j+2} - 1/2) + (c^\dag_{j+2} c_{j+1} - c^\dag_{j+1}
+    c_{j+2})(n_{j} - 1/2) \right) \bigg]
+\end{align*}
+
+
+Post-quench Hamiltonian: 
+\begin{align*}
+\hat{H} &= \sum_{j=0}^{L-1} \hat{h}_j \\
+&= \sum_{j=0}^{L-1} \left[ -J (c^\dag_{j} c_{j+1} + c^\dag_{j+1} c_j) + V (c^\dag_j c_j - 1/2) (c^\dag_{j+1} c_{j+1} - 1/2)\right]
+\end{align*}
+
+Emergent Hamiltonian: $\mathcal{H}(t) = \hat{P} + t \hat{Q}$
+
+Exact single particle correlation solution: $C_{ij} = \sum \limits_{\alpha,\beta}^{{L \choose N}} \sum \limits_{m, n}^{{L \choose N}}
+  e^{i t (E_\alpha - E_\beta)} 
+  \langle \alpha | \psi_0 \rangle \langle \psi_0 | \beta \rangle 
+  \alpha^{\ast}(m) \beta(n)
+  \langle m | \hat{c}^\dag_i \hat{c}_j | n \rangle$\\
+$|\alpha\rangle, | \beta \rangle$ denote energy eigenstates obtained via exact diagonalization of the post-quench Hamiltonian
+
+Effective single particle correlation solution: $C_{ij} = \sum \limits_{m,n}^{{L \choose N}} \phi(m) \phi^\ast(n) \langle m | \hat{c}^\dag_i \hat{c}_j | n \rangle$
+
+
+
+\end{document}
